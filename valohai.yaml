@@ -1,0 +1,7 @@
+- step:
+    name: train model
+    image: floydhub/pytorch:1.1.0-py3.44
+    command:
+      - cd data && bash get_coco_dataset.sh
+      - cd weights && bash download_weights.sh
+      - python3 train.py --data_config config/coco.data --pretrained_weights weights/darknet53.conv.74
