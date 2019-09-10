@@ -4,12 +4,16 @@
     command:
       - echo $PWD
       - cd /valohai/inputs/training-set-images && unzip train2014-redux.zip
-      - cd /valohai/inputs/training-set-images/train2014-redux && ls $PWD/* > /valohai/inputs/training-set-images/images-list.txt
+      - mv train2014-redux images
+      - cd images && ls $PWD/* > /valohai/inputs/training-set-images/images-list.txt
+      - cp /valohai/inputs/training-set-labels && unzip labels.tgz && mv labels /valohai/inputs/training-set-images/labels
       - cd /valohai/repository && pip install -r requirements.txt
       - python3 train.py --data_config config/coco.data
     inputs:
       - name: training-set-images
         default: datum://016d101d-b6e2-6639-c424-4a027ee84f39
+      - name: training-set-labels
+        default: datum://016d1b71-f37d-1692-7528-efa879b573c6
       - name: training-set-captions
         default: datum://016d101d-4399-b5a5-5373-9925451b8687
       - name: training-set-person-keypoints
