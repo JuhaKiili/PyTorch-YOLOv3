@@ -2,9 +2,9 @@
     name: train model
     image: floydhub/pytorch:1.1.0-py3.44
     command:
-      - unzip /valohai/inputs/training-set-images/train2014-redux.zip && rm /valohai/inputs/training-set-images/train2014-redux.zip
-      - cd /valohai/inputs/training-set-images && ls $PWD/* > /valohai/inputs/training-set-images/images-list.txt
-      - python3 train.py --data_config config/coco.data
+      - cd /valohai/inputs/training-set-images && unzip train2014-redux.zip
+      - cd /valohai/inputs/training-set-images/train2014-redux && ls $PWD/* > /valohai/inputs/training-set-images/images-list.txt
+      - cd $HOME && python3 train.py --data_config config/coco.data
     inputs:
       - name: training-set-images
         default: datum://016d101d-b6e2-6639-c424-4a027ee84f39
