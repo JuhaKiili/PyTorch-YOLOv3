@@ -6,7 +6,7 @@
       - cd /valohai/inputs/training-set-images && unzip train2014-redux.zip
       - mv train2014-redux images
       - cd images && ls $PWD/* > /valohai/inputs/training-set-images/images-list.txt
-      - cd /valohai/inputs/training-set-labels && unzip labels.tgz && mv labels /valohai/inputs/training-set-images/labels
+      - cd /valohai/inputs/training-set-labels && tar -xz labels.tgz && mv labels /valohai/inputs/training-set-images/labels
       - cd /valohai/repository && pip install -r requirements.txt
       - python3 train.py --data_config config/coco.data
     inputs:
