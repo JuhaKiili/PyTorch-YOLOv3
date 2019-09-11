@@ -2,11 +2,15 @@
     name: train model
     image: floydhub/pytorch:1.1.0-gpu.cuda9cudnn7-py3.45
     command:
-      - echo $PWD
+      - git clone https://github.com/pdollar/coco
       - cd /valohai/inputs/training-set-images && unzip train2014-redux.zip
-      - mv train2014-redux images
-      - cd images && ls $PWD/* > /valohai/inputs/training-set-images/images-list.txt
-      - cd /valohai/inputs/training-set-labels && tar -xzf labels.tgz && mv labels /valohai/inputs/training-set-images/labels
+      # after extraction we want images to end up at /valohai/repository/coco/images/train2014/<img-name>.jpg
+      - ln -s train2014-redux /valohai/repository/coco/images
+      - cd /valohai/inputs/training-set-labels && tar -xzf labels.tgz
+      - ln -s labels /valohai/repository/coco/labels
+      - cd /valohai/inputs/training-set-instances && unzip instances_train-val2014.zip
+      - ln -s annotations /valohai/repository/coco/annotations
+      - ln -s /valohai/inputs/training-set-images-list/images-list.txt /valohai/repository/images/images-list.txt
       - cd /valohai/repository && pip install -r requirements.txt
       - python3 train.py --data_config config/coco.data
     inputs:
@@ -14,9 +18,7 @@
         default: datum://016d101d-b6e2-6639-c424-4a027ee84f39
       - name: training-set-labels
         default: datum://016d1b71-f37d-1692-7528-efa879b573c6
-      - name: training-set-captions
-        default: datum://016d101d-4399-b5a5-5373-9925451b8687
-      - name: training-set-person-keypoints
-        default: datum://016d101c-87e0-ee1f-b4cd-3623c0d88a5c
       - name: training-set-instances
-        default: datum://016d1013-97bd-e7a1-7156-baa02fb3e0c8
+        default: datum://016d1b89-97c5-bfe6-28bf-b46469f27436
+      - name: training-set-images-list
+        default: datum://016d1f8e-bde6-11a1-4877-dbf73cf9b618

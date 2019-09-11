@@ -1,6 +1,6 @@
 classes= 80
-train=/valohai/inputs/training-set-images/images-list.txt
-valid=/valohai/inputs/training-set-images/images-list.txt
+train=images/images-list.txt
+valid=images/images-list.txt
 names=data/coco.names
 backup=backup/
 eval=coco
