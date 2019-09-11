@@ -18,7 +18,7 @@
       - python3 train.py --data_config config/coco.data
     inputs:
       - name: training-set-images
-        default: datum://016d1f94-4c1a-adcb-9ad4-b8621be9853e
+        default: datum://016d2046-193a-de87-ef3e-f90c449f60fa
       - name: training-set-labels
         default: datum://016d1b71-f37d-1692-7528-efa879b573c6
       - name: training-set-instances
