@@ -14,7 +14,7 @@
       - ln -s /valohai/inputs/training-set-images-list/images-list.txt /valohai/repository/coco/images-list.txt
       - cd /valohai/repository && pip install -r requirements.txt
       - ls -la /valohai/repository/coco/labels
-      - ls -la /valohai/repository/coco/labels/train2014/COCO_train2014_000000000671.jpg
+      - ls -la /valohai/repository/coco/labels/train2014/COCO_train2014_000000000671.txt
       - python3 train.py --data_config config/coco.data
     inputs:
       - name: training-set-images
