@@ -22,4 +22,4 @@
       - name: training-set-instances
         default: datum://016d1b89-97c5-bfe6-28bf-b46469f27436
       - name: training-set-images-list
-        default: datum://016d1f8e-bde6-11a1-4877-dbf73cf9b618
+        default: datum://016d2023-5023-e44d-c2bb-a80ad82742db
