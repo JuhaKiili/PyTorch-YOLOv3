@@ -11,7 +11,7 @@
       - ln -s labels/train2014 /valohai/repository/coco/labels/train2014
       - cd /valohai/inputs/training-set-instances && unzip instances_train-val2014.zip
       - ln -s annotations /valohai/repository/coco/images/annotations
-      - ln -s /valohai/inputs/training-set-images-list/images-list.txt /valohai/repository/images/images-list.txt
+      - ln -s /valohai/inputs/training-set-images-list/images-list.txt /valohai/repository/coco/images/images-list.txt
       - cd /valohai/repository && pip install -r requirements.txt
       - python3 train.py --data_config config/coco.data
     inputs:
