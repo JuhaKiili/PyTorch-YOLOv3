@@ -3,19 +3,20 @@
     image: floydhub/pytorch:1.1.0-gpu.cuda9cudnn7-py3.45
     command:
       - git clone https://github.com/pdollar/coco
+      - mkdir images; mkdir labels
       - cd /valohai/inputs/training-set-images && unzip train2014-redux.zip
       # after extraction we want images to end up at /valohai/repository/coco/images/train2014/<img-name>.jpg
-      - ln -s train2014-redux /valohai/repository/coco/images
+      - ln -s train2014-redux/train2014 /valohai/repository/coco/images/train2014
       - cd /valohai/inputs/training-set-labels && tar -xzf labels.tgz
-      - ln -s labels /valohai/repository/coco/labels
+      - ln -s labels/train2014 /valohai/repository/coco/labels/train2014
       - cd /valohai/inputs/training-set-instances && unzip instances_train-val2014.zip
-      - ln -s annotations /valohai/repository/coco/annotations
+      - ln -s annotations /valohai/repository/coco/images/annotations
       - ln -s /valohai/inputs/training-set-images-list/images-list.txt /valohai/repository/images/images-list.txt
       - cd /valohai/repository && pip install -r requirements.txt
       - python3 train.py --data_config config/coco.data
     inputs:
       - name: training-set-images
-        default: datum://016d101d-b6e2-6639-c424-4a027ee84f39
+        default: datum://016d1f94-4c1a-adcb-9ad4-b8621be9853e
       - name: training-set-labels
         default: datum://016d1b71-f37d-1692-7528-efa879b573c6
       - name: training-set-instances
