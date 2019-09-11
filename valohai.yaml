@@ -3,7 +3,7 @@
     image: floydhub/pytorch:1.1.0-gpu.cuda9cudnn7-py3.45
     command:
       - git clone https://github.com/pdollar/coco
-      - mkdir images; mkdir labels
+      - mkdir coco/images; mkdir coco/labels
       - cd /valohai/inputs/training-set-images && unzip train2014-redux.zip
       # after extraction we want images to end up at /valohai/repository/coco/images/train2014/<img-name>.jpg
       - ln -s train2014-redux/train2014 /valohai/repository/coco/images/train2014
