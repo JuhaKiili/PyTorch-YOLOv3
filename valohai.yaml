@@ -6,12 +6,12 @@
       - mkdir coco/images; mkdir coco/labels
       - cd /valohai/inputs/training-set-images && unzip train2014-redux.zip
       # after extraction we want images to end up at /valohai/repository/coco/images/train2014/<img-name>.jpg
-      - ln -s train2014-redux/train2014 /valohai/repository/coco/images/train2014
+      - ln -s /valohai/inputs/training-set-images/train2014-redux/train2014 /valohai/repository/coco/images/train2014
       - cd /valohai/inputs/training-set-labels && tar -xzf labels.tgz
-      - ln -s labels/train2014 /valohai/repository/coco/labels/train2014
+      - ln -s /valohai/inputs/training-set-labels/labels/train2014 /valohai/repository/coco/labels/train2014
       - cd /valohai/inputs/training-set-instances && unzip instances_train-val2014.zip
-      - ln -s annotations /valohai/repository/coco/images/annotations
-      - ln -s /valohai/inputs/training-set-images-list/images-list.txt /valohai/repository/coco/images/images-list.txt
+      - ln -s /valohai/inputs/training-set-instances/annotations /valohai/repository/coco/annotations
+      - ln -s /valohai/inputs/training-set-images-list/images-list.txt /valohai/repository/coco/images-list.txt
       - cd /valohai/repository && pip install -r requirements.txt
       - ls -la /valohai/repository/coco/images/
       - ls -la /valohai/repository/coco/images/train2014/COCO_train2014_000000001580.jpg
