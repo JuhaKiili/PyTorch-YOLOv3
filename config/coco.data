@@ -1,6 +1,6 @@
 classes= 80
-train=images/images-list.txt
-valid=images/images-list.txt
+train=coco/images/images-list.txt
+valid=coco/images/images-list.txt
 names=data/coco.names
 backup=backup/
 eval=coco
