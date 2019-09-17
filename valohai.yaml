@@ -25,3 +25,20 @@
         default: datum://016d1b89-97c5-bfe6-28bf-b46469f27436
       - name: training-set-images-list
         default: datum://016d2025-3cf2-4e4e-fc27-309af7efde46
+
+- step:
+    name: batch inference
+    image: floydhub/pytorch:1.1.0-gpu.cuda9cudnn7-py3.45
+    command:
+      - pip install -r requirements.txt
+      - unzip /valohai/inputs/inference-images/inference-images.zip
+      - python3 detect.py --image_folder /valohai/inputs/inference-images/inference-images
+      - mkdir /valohai/outputs/images-detected
+      - cp output/* /valohai/outputs/images-detected
+    inputs:
+      - name: yolov3-weights
+        default: datum://016d1b86-c303-6835-1d9c-6e61df4e0580
+      - name: darknet-weights
+        default: datum://016d1b88-0a32-ff41-0a7d-749865fb9919
+      - name: inference-images
+        default: datum://016d3ea0-5b59-01da-b4db-c6d458f7b9e3
