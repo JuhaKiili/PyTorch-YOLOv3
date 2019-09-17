@@ -34,7 +34,7 @@
       - unzip /valohai/inputs/inference-images/inference-images.zip
       - cp /valohai/inputs/darknet-weights/darknet53.conv.74 /valohai/repository/weights/
       - cp /valohai/inputs/yolov3-weights/yolov3.weights /valohai/repository/weights/
-      - python3 detect.py --image_folder /valohai/inputs/inference-images/inference-images
+      - python3 detect.py --image_folder data/samples
       - mkdir /valohai/outputs/images-detected
       - cp output/* /valohai/outputs/images-detected
     inputs:
@@ -42,5 +42,3 @@
         default: datum://016d1b86-c303-6835-1d9c-6e61df4e0580
       - name: darknet-weights
         default: datum://016d1b88-0a32-ff41-0a7d-749865fb9919
-      - name: inference-images
-        default: datum://016d3ea0-5b59-01da-b4db-c6d458f7b9e3
