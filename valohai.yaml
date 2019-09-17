@@ -32,8 +32,10 @@
     command:
       - pip install -r requirements.txt
       - unzip /valohai/inputs/inference-images/inference-images.zip
-      - ln -s /valohai/inputs/darknet-weights/darknet53.conv.74 /valohai/repository/weights/darknet53.conv.74
-      - ln -s /valohai/inputs/yolov3-weights/yolov3.weights /valohai/repository/weights/yolov3.weights
+      - cd weights && wget -c https://pjreddie.com/media/files/yolov3.weights && wget -c https://pjreddie.com/media/files/darknet53.conv.74
+      - cd /valohai/repository
+      #- ln -s /valohai/inputs/darknet-weights/darknet53.conv.74 /valohai/repository/weights/darknet53.conv.74
+      #- ln -s /valohai/inputs/yolov3-weights/yolov3.weights /valohai/repository/weights/yolov3.weights
       - python3 detect.py --image_folder data/samples
       - mkdir /valohai/outputs/images-detected
       - cp output/* /valohai/outputs/images-detected
