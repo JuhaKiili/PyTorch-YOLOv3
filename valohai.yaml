@@ -30,9 +30,6 @@
     name: batch inference
     image: floydhub/pytorch:1.1.0-gpu.cuda9cudnn7-py3.45
     command:
-      - pip install -r requirements.txt
-      - unzip /valohai/inputs/inference-images/inference-images.zip
-      - cd /valohai/repository
       - cp /valohai/inputs/darknet-weights/darknet53.conv.74 /valohai/repository/weights/
       - cp /valohai/inputs/yolov3-weights/yolov3.weights /valohai/repository/weights/
       - python3 detect.py --image_folder data/samples

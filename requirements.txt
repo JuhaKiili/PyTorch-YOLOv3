@@ -7,3 +7,4 @@ tensorboard
 terminaltables
 pillow
 tqdm
+werkzeug~=0.14.0
