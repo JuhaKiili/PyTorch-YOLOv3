@@ -14,15 +14,6 @@
       - ln -s /valohai/inputs/training-set-images-list/images-list.txt /valohai/repository/coco/images-list.txt
       - cd /valohai/repository && pip install -r requirements.txt
       - python3 train.py --data_config config/coco.data
-    inputs:
-      - name: training-set-images
-        default: datum://016d2046-193a-de87-ef3e-f90c449f60fa
-      - name: training-set-labels
-        default: datum://016d1b71-f37d-1692-7528-efa879b573c6
-      - name: training-set-instances
-        default: datum://016d1b89-97c5-bfe6-28bf-b46469f27436
-      - name: training-set-images-list
-        default: datum://016d2025-3cf2-4e4e-fc27-309af7efde46
 
 - step:
     name: batch inference
