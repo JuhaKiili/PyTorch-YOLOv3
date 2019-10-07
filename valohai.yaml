@@ -2,18 +2,29 @@
     name: train model
     image: floydhub/pytorch:1.1.0-gpu.cuda9cudnn7-py3.45
     command:
-      - git clone https://github.com/pdollar/coco
-      - mkdir coco/images; mkdir coco/labels
-      - cd /valohai/inputs/training-set-images && unzip train2014-redux.zip
-      # after extraction we want images to end up at /valohai/repository/coco/images/train2014/<img-name>.jpg
-      - ln -s /valohai/inputs/training-set-images/train2014-redux/train2014 /valohai/repository/coco/images/train2014
-      - cd /valohai/inputs/training-set-labels && tar -xzf labels.tgz
-      - ln -s /valohai/inputs/training-set-labels/labels/train2014 /valohai/repository/coco/labels/train2014
-      - cd /valohai/inputs/training-set-instances && unzip instances_train-val2014.zip
-      - ln -s /valohai/inputs/training-set-instances/annotations /valohai/repository/coco/annotations
-      - ln -s /valohai/inputs/training-set-images-list/images-list.txt /valohai/repository/coco/images-list.txt
-      - cd /valohai/repository && pip install -r requirements.txt
-      - python3 train.py --data_config config/coco.data
+      - git clone https://github.com/pdollar/coco /tmp/coco
+      - mkdir /tmp/coco/config
+      - echo "classes=80\ntrain=/tmp/5k.txt\nvalid=/tmp/trainvalno5k.txt\nnames=/valohai/repository/data/coco.names\nbackup=backup/\neval=coco" >> /tmp/coco/config/coco.data
+      - mkdir /tmp/images
+      - mv /valohai/inputs/training-images/train2014.zip /tmp/images/train2014.zip
+      - mv /valohai/inputs/training-images/val2014.zip /tmp/images/val2014.zip
+      - unzip -q /tmp/images/train2014.zip
+      - unzip -q /tmp/images/val2014.zip
+      - echo "Downloading..."
+      - curl -o /tmp/instances_train-val2014.zip https://pjreddie.com/media/files/instances_train-val2014.zip
+      - curl -o /tmp/5k.part https://pjreddie.com/media/files/coco/5k.part
+      - curl -o /tmp/trainvalno5k.part https://pjreddie.com/media/files/coco/trainvalno5k.part
+      - curl -o /tmp/labels.tgz https://pjreddie.com/media/files/coco/labels.tgz
+      - tar xzf /tmp/labels.tgz
+      - unzip -q /tmp/instances_train-val2014.zip
+      - python3 train.py --data_config /tmp/coco/config/coco.data
+      - paste <(awk "{print \"$PWD\"}" </tmp/5k.part) /tmp/5k.part | tr -d '\t' > /tmp/5k.txt
+      - paste <(awk "{print \"$PWD\"}" </tmp/trainvalno5k.part) /tmp/trainvalno5k.part | tr -d '\t' > /tmp/trainvalno5k.txt
+    inputs:
+      - name: training-images
+        default: http://images.cocodataset.org/zips/train2014.zip
+      - name: validation-images
+        default: http://images.cocodataset.org/zips/val2014.zip
 
 - step:
     name: batch inference
