@@ -1,6 +1,6 @@
 - step:
     name: train model
-    image: floydhub/pytorch:1.1.0-gpu.cuda9cudnn7-py3.45
+    image: juhavalohai/yolov3
     command:
       - git clone https://github.com/pdollar/coco /tmp/coco
       - mkdir /tmp/coco/config
