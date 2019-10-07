@@ -7,7 +7,7 @@
       - echo "classes=80\ntrain=/tmp/5k.txt\nvalid=/tmp/trainvalno5k.txt\nnames=/valohai/repository/data/coco.names\nbackup=backup/\neval=coco" >> /tmp/coco/config/coco.data
       - mkdir /tmp/images
       - mv /valohai/inputs/training-images/train2014.zip /tmp/images/train2014.zip
-      - mv /valohai/inputs/training-images/val2014.zip /tmp/images/val2014.zip
+      - mv /valohai/inputs/validation-images/val2014.zip /tmp/images/val2014.zip
       - unzip -q /tmp/images/train2014.zip
       - unzip -q /tmp/images/val2014.zip
       - echo "Downloading..."
@@ -28,7 +28,7 @@
 
 - step:
     name: batch inference
-    image: floydhub/pytorch:1.1.0-gpu.cuda9cudnn7-py3.45
+    image: juhavalohai/yolov3
     command:
       - cp /valohai/inputs/darknet-weights/darknet53.conv.74 /valohai/repository/weights/
       - cp /valohai/inputs/yolov3-weights/yolov3.weights /valohai/repository/weights/
