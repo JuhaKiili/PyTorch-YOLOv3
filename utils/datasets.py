@@ -11,6 +11,8 @@ from utils.augmentations import horisontal_flip
 from torch.utils.data import Dataset
 import torchvision.transforms as transforms
 
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 def pad_to_square(img, pad_value):
     c, h, w = img.shape
@@ -61,10 +63,18 @@ class ListDataset(Dataset):
         with open(list_path, "r") as file:
             self.img_files = file.readlines()
 
+        # for path in self.img_files:
+        #     path = path.strip()
+
+        self.img_files = list(filter(
+            lambda x: os.path.exists(x.strip().replace("images", "labels").replace(".png", ".txt").replace(".jpg", ".txt")), self.img_files
+            ))
+
         self.label_files = [
-            path.replace("images", "labels").replace(".png", ".txt").replace(".jpg", ".txt")
+            path.strip().replace("images", "labels").replace(".png", ".txt").replace(".jpg", ".txt")
             for path in self.img_files
         ]
+
         self.img_size = img_size
         self.max_objects = 100
         self.augment = augment
@@ -135,10 +145,13 @@ class ListDataset(Dataset):
         paths, imgs, targets = list(zip(*batch))
         # Remove empty placeholder targets
         targets = [boxes for boxes in targets if boxes is not None]
+
         # Add sample index to targets
         for i, boxes in enumerate(targets):
             boxes[:, 0] = i
+
         targets = torch.cat(targets, 0)
+
         # Selects new image size every tenth batch
         if self.multiscale and self.batch_count % 10 == 0:
             self.img_size = random.choice(range(self.min_size, self.max_size + 1, 32))
