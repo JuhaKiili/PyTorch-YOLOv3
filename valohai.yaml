@@ -6,8 +6,8 @@
       - mkdir /tmp/coco/config
       - echo "classes=80\ntrain=/tmp/5k.txt\nvalid=/tmp/trainvalno5k.txt\nnames=/valohai/repository/data/coco.names\nbackup=backup/\neval=coco" >> /tmp/coco/config/coco.data
       - mkdir /tmp/images
-      - mv /valohai/inputs/training-images/train2014.zip /tmp/images/train2014.zip
-      - mv /valohai/inputs/validation-images/val2014.zip /tmp/images/val2014.zip
+      - cp /valohai/inputs/training-images/train2014.zip /tmp/images/train2014.zip
+      - cp /valohai/inputs/validation-images/val2014.zip /tmp/images/val2014.zip
       - unzip -q /tmp/images/train2014.zip
       - unzip -q /tmp/images/val2014.zip
       - echo "Downloading..."
